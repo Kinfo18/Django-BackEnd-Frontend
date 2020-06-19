@@ -1,0 +1,5 @@
+<ul class="topnav">
+    <li><a class="active" href="home">Sistema de gestión de empleados</a></li>
+    <li><a (click)="navigateHome()">Home</a></li>
+    <li *ngIf="this.userService.isLoggedIn()" class="right"><a (click)="logOut()" href="/">Cerrar sesión</a></li>
+</ul>

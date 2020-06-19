@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-md-6">          
+    <form #companyForm="ngForm" (ngSubmit)="onSubmit(companyForm)">
+    <div class="form-group user-image">
+      <a>
+        <div class="user-image" *ngIf="logoUrl$ as url; else imgBlock">
+          <img class="center" id="profile-pic" [src]="url" alt="My Image">
+        </div>        
+      </a>
+      <ng-template #imgBlock>
+          <div class="user-image">
+            <img class="center" id="profile-pic" [src]="imageUrl" alt="My Image">
+          </div>
+      </ng-template> 
+    </div>
+      <input type="hidden" name="id" #id="ngModel" [(ngModel)]="companyService.selectedCompany.id">
+    <div class="form-group">
+      <label>Nombre</label>
+      <input class="form-control" name="name" #name="ngModel" [(ngModel)]="carreraService.selectedCarrera.name" placeholder="Nombre de la carrera" required>
+    </div>
+    <div class="form-group">
+      <label>Departamento</label>
+      <input class="form-control" name="departamento" #email="ngModel" [(ngModel)]="carreraService.selectedCarrera.email" placeholder="Departamento" required [pattern]="DepartamentoRegex">
+    </div>    
+    <div class="form-group">
+      <label>Codigo</label>
+      <input class="form-control" name="codigo" #webSite="ngModel" [(ngModel)]="carreraService.selectedCarrera.webSite" placeholder="Carrera">
+    </div>
+    <div class="form-group">
+      <button class="btn btn-default" type="submit" [disabled]="!companyForm.valid">
+        <i class="fa fa-floppy-o"></i>
+        Submit</button>
+      <button class="btn btn-default" type="button" (click)="resetForm()">
+        <i class="fa fa-repeat"></i>
+        Reset</button>
+    </div>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <h6 *ngIf="!comMessage" class="text-center">Registro de la Carrera</h6><br/>
+    <h6 *ngIf="comMessage" class="text-center alert alert-danger" role="alert">{{ comMessage }}</h6><br/>
+    <table class="table table-sm table-hover">
+      <tr *ngFor="let carrera of carreraService.companies">
+          <td>{{carrera.nombre}}</td>
+          <td>{{carrera.departamento}}</td>
+          <td>
+            <a class="btn" (click)="onEdit(Carrera)">
+              <i class="fa fa-pencil-square-o"></i>
+            </a>
+            <a class="btn" (click)="onDelete(Carrera.id)">
+              <i class="fa fa-trash-o"></i>
+            </a>
+            <a class="btn" (click)="addDocente(Carrera.id)">
+              <i class="fa fa-user-plus"></i>Carrera
+            </a>
+          </td>
+      </tr>
+    </table>
+  </div>
+</div>
